@@ -45,7 +45,7 @@ jobs:
           docker push ${{ secrets.DOCKER_REPO }}/brick-server
 
       ## brick-proxy 빌드 및 도커허브에 push
-      - name: brick-server docker build and push
+      - name: brick-proxy docker build and push
         run: |
           docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
           docker build -t ${{ secrets.DOCKER_REPO }}/brick-proxy . -f brick-proxy.dockerfile
