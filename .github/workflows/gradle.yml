@@ -28,7 +28,35 @@ jobs:
       with:
         java-version: '11'
         distribution: 'temurin'
-    - name: Build with Gradle
-      uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
-      with:
-        arguments: build
+
+          ## gradle build
+          - name: build with gradle
+            run: ./gradlew bootJar
+
+          ## brick-server 빌드 및 도커허브에 push
+          - name: brick-server docker build and push
+            run: |
+              docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+              docker build -t ${{ secrets.DOCKER_REPO }}/brick-server .
+              docker push ${{ secrets.DOCKER_REPO }}/brick-server
+
+          ## brick-proxy 빌드 및 도커허브에 push
+          - name: brick-server docker build and push
+            run: |
+              docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+              docker build -t ${{ secrets.DOCKER_REPO }}/brick-proxy .
+              docker push ${{ secrets.DOCKER_REPO }}/brick-proxy
+
+          ## docker compose up
+          - name: executing remote ssh commands using password
+            uses: appleboy/ssh-action@master
+            with:
+              host: ${{ secrets.HOST }}
+              username: ubuntu
+              key: ${{ secrets.KEY }}
+              script: |
+                sudo docker rm -f $(docker ps -qa)
+                sudo docker pull ${{ secrets.DOCKER_REPO }}/brick-server
+                sudo docker pull ${{ secrets.DOCKER_REPO }}/brick-proxy
+                docker-compose up -d
+                docker image prune -f
