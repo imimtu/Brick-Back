@@ -51,7 +51,7 @@ jobs:
           docker build -t ${{ secrets.DOCKER_REPO }}/brick-proxy . -f brick-proxy.dockerfile
           docker push ${{ secrets.DOCKER_REPO }}/brick-proxy
 
-      ## docker compose up finally
+      ## docker compose up finally!
       - name: executing remote ssh commands using password
         uses: appleboy/ssh-action@master
         with:
