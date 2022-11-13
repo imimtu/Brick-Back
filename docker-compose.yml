@@ -1,0 +1,22 @@
+version: '3'
+services:
+
+  brick-server:
+    container_name: brick-server
+    image: lsyeup1206/brick-server
+    expose:
+      - 8080
+    ports:
+      - 8080:8080
+    environment:
+      TZ: "Asia/Seoul"
+
+  brick-proxy:
+    container_name: brick-proxy
+    image: lsyeup1206/brick-proxy
+    ports:
+      - 80:80
+    depends_on:
+      - brick-server
+    environment:
+      TZ: "Asia/Seoul"
