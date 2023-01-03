@@ -1,4 +1,4 @@
-package com.im2.brickback.presentation;
+package com.im2.brickback.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
