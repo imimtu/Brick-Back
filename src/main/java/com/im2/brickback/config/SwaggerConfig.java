@@ -1,4 +1,4 @@
-package com.im2.brickback.swagger;
+package com.im2.brickback.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -32,7 +32,7 @@ public class SwaggerConfig {
                 .apiInfo(apiInfo()) // Swagger UI 로 노출할 정보
                 .select()
                 .apis(RequestHandlerSelectors.any())
-                //.apis(RequestHandlerSelectors.basePackage("com.im2.brickback.presentation.SampleController")) // api 스펙이 작성되어 있는 패키지 (controller)
+                //.apis(RequestHandlerSelectors.basePackage("com.im2.brickback.controller.SampleController")) // api 스펙이 작성되어 있는 패키지 (controller)
                 .paths(PathSelectors.any()) // apis 에 위치하는 API 중 특정 path 를 선택
                 .build();
     }
