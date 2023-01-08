@@ -1,1 +1,57 @@
+debug: false # 디버그 요소 활성화 여부 > 대신 response,
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+logging:
+  level:
+    com.im2.brickback: debug
+    org.springframework.web.servlet: debug      # request, response 로그만 따로 빼서 디버깅하기 위해서
+    org.hibernate.type.descriptor.sql: trace
+
+spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher       # Swagger 와 버전 호환문제
+
+  datasource:
+    url: jdbc:mysql://ec2-3-35-51-115.ap-northeast-2.compute.amazonaws.com:3306
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver # MySQL 8 용 드라이버
+  # h2 설정용 임시 세팅
+  #    url: jdbc:h2:mem:testdb
+  #    username: sa
+  #    driver-class-name: org.h2.Driver
+  jpa:
+    defer-datasource-initialization: true
+    hibernate:
+      ddl-auto: create                          # entity 만 보고도 ddl 을 직접 만들어준다.
+    show-sql: true
+    properties:
+      hibernate:                                # 자바 언어를 위한 ORM 프레임워크 (JPA 구현체)
+        format_sql: true
+        default_batch_fetch_size: 100           # 100개 단위 벌크 fetch
+  h2:
+    console:
+      enabled: false
+  sql:
+    init:
+      mode: never                              # data.sql 을 언제 작동시킬것인가?
+  data:
+    rest:
+      base-path: /api
+      detection-strategy: annotated             # annotation 을 지정한 놈만 api로 노출시킨다는 뜻
+
+# test-db profile
+#spring:
+#  config:
+#    activate:
+#      on-profile: testdb
+#  datasource:
+#    url: jdbc:h2:mem:board;mode=mysql
+#    driver-class-name: org.h2.Driver
+#  sql.init.mode: always
+#  test.database.replace: none
