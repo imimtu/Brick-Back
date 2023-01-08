@@ -1,20 +1,20 @@
 version: '3'
 services:
 
-  brick-db:
-    image: library/mysql:8.0.23
-    container_name: brick-db
-    restart: always
-    command: # 명령어 실행 한글 깨짐 방지
-      - --character-set-server=utf8mb4
-      - --collation-server=utf8mb4_unicode_ci
-    ports:
-      - 3306:3306 # 호스트 : 컨테이너
-    environment:
-      MYSQL_ROOT_PASSWORD: root # 초기비밀번호
-      TZ: Asia/Seoul
-    volumes:
-      - ./db/mysql/data:/var/lib/mysql # 디렉토리 마운트 설정
+#  brick-db:
+#    image: library/mysql:8.0.23
+#    container_name: brick-db
+#    restart: always
+#    command: # 명령어 실행 한글 깨짐 방지
+#      - --character-set-server=utf8mb4
+#      - --collation-server=utf8mb4_unicode_ci
+#    ports:
+#      - 3306:3306 # 호스트 : 컨테이너
+#    environment:
+#      MYSQL_ROOT_PASSWORD: root # 초기비밀번호
+#      TZ: Asia/Seoul
+#    volumes:
+#      - ./db/mysql/data:/var/lib/mysql # 디렉토리 마운트 설정
 
   brick-proxy:
     container_name: brick-proxy
