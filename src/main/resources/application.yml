@@ -39,7 +39,7 @@ spring:
       enabled: false
   sql:
     init:
-      mode: never                              # data.sql 을 언제 작동시킬것인가?
+      mode: always #never                              # data.sql 을 언제 작동시킬것인가?
   data:
     rest:
       base-path: /api

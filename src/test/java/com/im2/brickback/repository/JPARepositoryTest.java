@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
@@ -39,8 +41,54 @@ class JPARepositoryTest {
 
         assertThat(bricks)
                 .isNotNull()
-                .hasSize(0);
+                .hasSize(   100);
 
+    }
+
+    @DisplayName("Insert Test")
+    @Test
+    void givenTestData_whenInserting_thenWorksFine() {
+
+        // Given
+        long previousCount = brickRepository.count();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        LocalDateTime insertDateTime = LocalDateTime.parse("2022-05-25 19:55:00", formatter);
+
+        // When & Then
+        Brick tempBrick = Brick.of("test","test",2, insertDateTime,"test", true);
+        Brick savedBrick = brickRepository.save(tempBrick);
+
+        assertThat(brickRepository.count())
+                .isEqualTo(previousCount+1);
+    }
+
+    @DisplayName("Update Test")
+    @Test
+    void givenTestData_whenUpdating_thenWorksFine() {
+
+        // Given
+        Brick firstBrick = brickRepository.findById(1L).orElseThrow();
+        String updatedContent = "updatedContent";
+        firstBrick.setContent("updatedContent");
+
+        // When & Then
+        Brick updatedBrick = brickRepository.saveAndFlush(firstBrick);
+
+        assertThat(updatedBrick).hasFieldOrPropertyWithValue("content", updatedContent);
+    }
+
+    @DisplayName("Update Test")
+    @Test
+    void givenTestData_whenDeleting_thenWorksFine() {
+
+        // Given
+        Brick firstBrick = brickRepository.findById(1L).orElseThrow();
+        long previousBrickCount = brickRepository.count();
+
+        // When & Then
+        brickRepository.delete(firstBrick);
+
+        assertThat(brickRepository.count()).isEqualTo(previousBrickCount-1);
     }
 
 }
