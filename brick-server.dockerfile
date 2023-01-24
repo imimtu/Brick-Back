@@ -1,6 +1,6 @@
 # for brick_back
 
-FROM openjdk:11
+FROM openjdk:17
 ARG JAR_FILE=build/libs/*.jar
 EXPOSE 8080
 COPY ${JAR_FILE} app.jar
