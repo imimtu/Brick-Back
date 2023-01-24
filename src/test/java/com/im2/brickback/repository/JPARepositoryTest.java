@@ -2,6 +2,7 @@ package com.im2.brickback.repository;
 
 import com.im2.brickback.config.JpaConfig;
 import com.im2.brickback.domain.Brick;
+import com.im2.brickback.domain.UserAccount;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,11 +39,15 @@ class JPARepositoryTest {
 
         // When & Then
         List<Brick> bricks = brickRepository.findAll();
+        List<UserAccount> users = userAccountRepository.findAll();
 
         assertThat(bricks)
                 .isNotNull()
                 .hasSize(   100);
 
+        assertThat(users)
+                .isNotNull()
+                .hasSize(0);
     }
 
     @DisplayName("Insert Test")
@@ -90,5 +95,6 @@ class JPARepositoryTest {
 
         assertThat(brickRepository.count()).isEqualTo(previousBrickCount-1);
     }
+
 
 }
