@@ -1,7 +1,7 @@
 plugins {
     id 'java'
-    id 'org.springframework.boot' version '2.7.0'
-    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'org.springframework.boot' version '3.0.0'
+    id 'io.spring.dependency-management' version '1.1.0'
 }
 
 group = 'com.devsyl'
@@ -19,9 +19,8 @@ repositories {
 }
 
 dependencies {
-    // Swagger
-    implementation 'io.springfox:springfox-boot-starter:3.0.0'
-    implementation 'io.springfox:springfox-swagger-ui:3.0.0'
+    // Swagger : https://springdoc.org/v2/
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2'
 
      // database
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
@@ -30,6 +29,10 @@ dependencies {
 
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
+
+    // rest api
+    implementation 'org.springframework.boot:spring-boot-starter-data-rest'
+    implementation 'org.springframework.data:spring-data-rest-hal-explorer'
 
     // default
     implementation 'org.springframework.boot:spring-boot-starter-web'
