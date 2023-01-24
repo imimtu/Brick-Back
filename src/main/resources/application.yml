@@ -1,10 +1,11 @@
-debug: false # 디버그 요소 활성화 여부 > 대신 response,
+debug: true # 디버그 요소 활성화 여부 > 대신 response,
 
 management:
   endpoints:
     web:
       exposure:
         include: "*"
+
 logging:
   level:
     com.im2.brickback: debug
@@ -17,10 +18,11 @@ spring:
       matching-strategy: ant_path_matcher       # Swagger 와 버전 호환문제
 
   datasource:
-    url: jdbc:mysql://ec2-3-35-51-115.ap-northeast-2.compute.amazonaws.com:3306
+    url: jdbc:mysql://ec2-3-35-51-115.ap-northeast-2.compute.amazonaws.com:3306/dev_brick_db
     username: root
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver # MySQL 8 용 드라이버
+
   # h2 설정용 임시 세팅
   #    url: jdbc:h2:mem:testdb
   #    username: sa
@@ -39,11 +41,12 @@ spring:
       enabled: false
   sql:
     init:
-      mode: never                              # data.sql 을 언제 작동시킬것인가?
+      mode: always #never                              # data.sql 을 언제 작동시킬것인가?
   data:
     rest:
       base-path: /api
       detection-strategy: annotated             # annotation 을 지정한 놈만 api로 노출시킨다는 뜻
+
 
 # test-db profile
 #spring:
