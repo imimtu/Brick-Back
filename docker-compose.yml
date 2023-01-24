@@ -35,3 +35,21 @@ services:
       - 8080:8080
     environment:
       TZ: "Asia/Seoul"
+
+#  brick-db:
+#    platform: linux/x86_64
+#    image: mysql:8.0.17
+#    container_name: brick-db
+#    restart: always
+#    ports:
+#      - 3306:3306
+#    environment:
+#      MYSQL_ROOT_PASSWORD: root
+#      TZ: Asia/Seoul
+#    command:
+#      - --character-set-server=utf8mb4
+#      - --collation-server=utf8mb4_unicode_ci
+#    volumes:
+#      - ./mysql8/db:/var/lib/mysql
+#      - ./mysql8/config:/etc/mysql
+#      - ./mysql8/mysql-files:/var/lib/mysql-files

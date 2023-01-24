@@ -19,8 +19,8 @@ spring:
 
   datasource:
     url: jdbc:mysql://ec2-3-35-51-115.ap-northeast-2.compute.amazonaws.com:3306/dev_brick_db
-    username: root
-    password: root
+    username: imimtu
+    password: Imimtu12!
     driver-class-name: com.mysql.cj.jdbc.Driver # MySQL 8 용 드라이버
 
   # h2 설정용 임시 세팅
