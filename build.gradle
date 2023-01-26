@@ -40,6 +40,7 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     // implementation 'org.springframework.boot:spring-boot-starter-actuator' // 컨텍스트 빈, 환경 설정, 자동 설정, JVM 상태 모나터링
     // actuator는 pathpattern-based parsing 을 사용하므로 ant_path_matcher 를 사용하는 swagger(springfox-boot-starter:3.0.0) 와 충돌 중
+    implementation 'org.springframework.boot:spring-boot-starter-validation' // Unable to create a Configuration, because no Jakarta Bean Validation provider could be found.
 
     // junit test
     testImplementation 'org.junit.jupiter:junit-jupiter-params:5.8.2'

@@ -1,4 +1,4 @@
-debug: true # 디버그 요소 활성화 여부 > 대신 response,
+debug: false # 디버그 요소 활성화 여부 > 대신 response,
 
 management:
   endpoints:
@@ -23,10 +23,6 @@ spring:
     password: Imimtu12!
     driver-class-name: com.mysql.cj.jdbc.Driver # MySQL 8 용 드라이버
 
-  # h2 설정용 임시 세팅
-  #    url: jdbc:h2:mem:testdb
-  #    username: sa
-  #    driver-class-name: org.h2.Driver
   jpa:
     defer-datasource-initialization: true
     hibernate:
@@ -46,15 +42,3 @@ spring:
     rest:
       base-path: /api
       detection-strategy: annotated             # annotation 을 지정한 놈만 api로 노출시킨다는 뜻
-
-
-# test-db profile
-#spring:
-#  config:
-#    activate:
-#      on-profile: testdb
-#  datasource:
-#    url: jdbc:h2:mem:board;mode=mysql
-#    driver-class-name: org.h2.Driver
-#  sql.init.mode: always
-#  test.database.replace: none
