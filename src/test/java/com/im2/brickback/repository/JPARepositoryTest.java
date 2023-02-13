@@ -21,14 +21,14 @@ import static org.assertj.core.api.Assertions.*;
 class JPARepositoryTest {
 
     private final BrickRepository brickRepository;
-    private final UserAccountRepository userAccountRepository;
+    private final UserAccountEntityRepository userAccountEntityRepository;
 
     public JPARepositoryTest(
             @Autowired BrickRepository brickRepository,
-            @Autowired UserAccountRepository userAccountRepository
+            @Autowired UserAccountEntityRepository userAccountEntityRepository
     ) {
         this.brickRepository = brickRepository;
-        this.userAccountRepository = userAccountRepository;
+        this.userAccountEntityRepository = userAccountEntityRepository;
     }
 
     @DisplayName("Select Test")
@@ -39,7 +39,7 @@ class JPARepositoryTest {
 
         // When & Then
         List<BrickEntity> bricks = brickRepository.findAll();
-        List<UserAccountEntity> users = userAccountRepository.findAll();
+        List<UserAccountEntity> users = userAccountEntityRepository.findAll();
 
         assertThat(bricks)
                 .isNotNull()
