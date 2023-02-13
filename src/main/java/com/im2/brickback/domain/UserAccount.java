@@ -23,6 +23,7 @@ public class UserAccount {
     private String email;
     private String phone_number;
     private boolean is_active;
+    private UserRole role;
 
     private LocalDateTime created_at;
     private String created_by; // 누가 했는지는 JpaConfig 에 임시로 달아놓음
@@ -38,6 +39,7 @@ public class UserAccount {
                 userAccount.getEmail(),
                 userAccount.getPhone_number(),
                 userAccount.is_active(),
+                userAccount.getRole(),
                 userAccount.getCreated_at(),
                 userAccount.getCreated_by(),
                 userAccount.getModified_at(),

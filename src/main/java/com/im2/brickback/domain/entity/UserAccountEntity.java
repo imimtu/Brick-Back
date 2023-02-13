@@ -33,7 +33,7 @@ public class UserAccountEntity {
     @Setter private String email;
     @Setter private String phone_number;
     @Setter private boolean is_active;
-    @Column(name = "role") @Enumerated(EnumType.STRING) private UserRole role;  // 관리자 권한여부
+    @Setter @Column(name = "role") @Enumerated(EnumType.STRING) private UserRole role;  // 관리자 권한여부
 
     @CreatedDate @Column(nullable = false, length = 100) private LocalDateTime created_at;
     @CreatedBy @Column(nullable = false, length = 100) private String created_by; // 누가 했는지는 JpaConfig 에 임시로 달아놓음
