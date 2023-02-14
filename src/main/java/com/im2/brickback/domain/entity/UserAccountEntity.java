@@ -32,7 +32,7 @@ public class UserAccountEntity {
 
     @Column(nullable = false) private String userId;
     @Column(nullable = false) private String userPassword;
-    private String nickname;
+    private String nickName;
     private String email;
     private String phoneNumber;
     private boolean isActive;

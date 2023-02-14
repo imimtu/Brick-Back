@@ -19,9 +19,11 @@ public class UserService {
     private final BrickRepository brickRepository;
 
     public UserAccount join(String userName, String password){
+        // 유저명 중복인지?
         userAccountEntityRepository.findByUserName(userName).ifPresent( it -> {
                     throw new BrickApplicationException(ErrorCode.DUPLICATED_USER_NAME, String.format("%s is duplicated", userName ));
                 });
+        // 회원가입 진행
         UserAccountEntity userAccountEntity = userAccountEntityRepository.save(UserAccountEntity.of(userName, bCryptPasswordEncoder.encode(password)));
         return UserAccount.fromEntity(userAccountEntity);
     }

@@ -17,33 +17,33 @@ import java.time.LocalDateTime;
 public class UserAccount {
 
     private Long id;
-    private String user_id;
-    private String user_password;
-    private String nickname;
+    private String userId;
+    private String userPassword;
+    private String nickName;
     private String email;
-    private String phone_number;
-    private boolean is_active;
+    private String phoneNumber;
+    private boolean isActive;
     private UserRole role;
 
-    private LocalDateTime created_at;
-    private String created_by; // 누가 했는지는 JpaConfig 에 임시로 달아놓음
-    private LocalDateTime modified_at;
-    private String modified_by;
+    private LocalDateTime createdAt;
+    private String createdBy; // 누가 했는지는 JpaConfig 에 임시로 달아놓음
+    private LocalDateTime modifiedAt;
+    private String modifiedBy;
 
     public static UserAccount fromEntity(UserAccountEntity userAccount){
         return new UserAccount(
                 userAccount.getId(),
-                userAccount.getUser_id(),
-                userAccount.getUser_password(),
-                userAccount.getNickname(),
+                userAccount.getUserId(),
+                userAccount.getUserPassword(),
+                userAccount.getNickName(),
                 userAccount.getEmail(),
-                userAccount.getPhone_number(),
-                userAccount.is_active(),
+                userAccount.getPhoneNumber(),
+                userAccount.isActive(),
                 userAccount.getRole(),
-                userAccount.getCreated_at(),
-                userAccount.getCreated_by(),
-                userAccount.getModified_at(),
-                userAccount.getModified_by()
+                userAccount.getCreatedAt(),
+                userAccount.getCreatedBy(),
+                userAccount.getModifiedAt(),
+                userAccount.getModifiedBy()
         );
     }
 
