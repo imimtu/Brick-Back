@@ -19,7 +19,12 @@ public class AuthenticationConfig { // extends WebsecurityConfigurerAdapter -> d
                 .authorizeHttpRequests((authz) -> {
                             try {
                                 authz
-                                        .requestMatchers("/api/*/users/join", "/api/*/users/login").permitAll()
+                                        .requestMatchers(
+                                                "/swagger-ui.html", // swagger 허용
+                                                "/api/*/users/join",
+                                                "/api/*/users/login"
+                                        )
+                                        .permitAll()
                                         .requestMatchers("/api/**").authenticated()
                                         .and()
                                         .sessionManagement()
