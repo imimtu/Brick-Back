@@ -26,7 +26,7 @@ spring:
   jpa:
     defer-datasource-initialization: true
     hibernate:
-      ddl-auto: create                          # entity 만 보고도 ddl 을 직접 만들어준다.
+      ddl-auto: update                          # entity 만 보고도 ddl 을 직접 만들어준다.
                                                 # create: 기존테이블 삭제 후 다시 생성 (DROP + CREATE)
                                                 # create-drop: create와 같으나 종료시점에 테이블 DROP
                                                 # update: 변경분만 반영(운영DB에서는 사용하면 안됨)
