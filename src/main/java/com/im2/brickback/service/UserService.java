@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 public class UserService {
 
     private final UserEntityRepository userEntityRepository;
-//    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final BCryptPasswordEncoder encoder;
 //    private final BrickRepository brickRepository;
 
     public User join(String userId, String userPassword){
@@ -24,7 +24,7 @@ public class UserService {
             throw new BrickApplicationException(ErrorCode.DUPLICATED_USER_NAME, String.format("%s is duplicated", userId ));
         });
         // 회원가입 진행
-        UserEntity userEntity = userEntityRepository.save(UserEntity.of(userId, userPassword));
+        UserEntity userEntity = userEntityRepository.save(UserEntity.of(userId, encoder.encode(userPassword)));
         return User.fromEntity(userEntity);
     }
 
