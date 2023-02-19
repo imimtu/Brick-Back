@@ -9,9 +9,9 @@ name: Java CI with Gradle
 
 on:
   push:
-    branches: [ "develop" ]
-  pull_request:
-    branches: [ "develop" ]
+    branches: [ "develop" ] # make it deploy once (only in push)
+#  pull_request:
+#    branches: [ "develop" ]
 
 permissions:
   contents: read
