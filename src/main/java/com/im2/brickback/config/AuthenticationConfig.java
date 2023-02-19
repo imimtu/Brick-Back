@@ -20,7 +20,11 @@ public class AuthenticationConfig { // extends WebsecurityConfigurerAdapter -> d
                             try {
                                 authz
                                         .requestMatchers(
-                                                "/swagger*", // swagger 허용
+                                                // swagger 허용
+                                                "/swagger-ui/**",
+                                                "/v3/api-docs/**",
+                                                "/api/profile/**",
+                                                // user
                                                 "/api/*/users/join",
                                                 "/api/*/users/login"
                                         )
