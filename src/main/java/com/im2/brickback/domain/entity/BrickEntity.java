@@ -1,4 +1,4 @@
-package com.im2.brickback.domain;
+package com.im2.brickback.domain.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -25,10 +25,10 @@ import java.util.Objects;
         @Index(columnList = "hashtag"),
         @Index(columnList = "created_at"),
         @Index(columnList = "created_by")
-})
+}, name = "brick")
 @EntityListeners(AuditingEntityListener.class)
 @Entity
-public class Brick {
+public class BrickEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -47,9 +47,9 @@ public class Brick {
     @LastModifiedDate @Column(nullable = false, length = 100) private LocalDateTime modified_at;
     @LastModifiedBy @Column(nullable = false, length = 100) private String modified_by;
 
-    protected Brick() {}
+    protected BrickEntity() {}
 
-    public Brick(String title, String content, int priority, LocalDateTime deadline, String hashtag, boolean is_completed) {
+    public BrickEntity(String title, String content, int priority, LocalDateTime deadline, String hashtag, boolean is_completed) {
         this.title = title;
         this.content = content;
         this.priority = priority;
@@ -58,14 +58,14 @@ public class Brick {
         this.is_completed = is_completed;
     }
 
-    public static Brick of(String title, String content, int priority, LocalDateTime deadline, String hashtag, boolean is_completed) {
-        return new Brick( title, content, priority, deadline, hashtag, is_completed);
+    public static BrickEntity of(String title, String content, int priority, LocalDateTime deadline, String hashtag, boolean is_completed) {
+        return new BrickEntity( title, content, priority, deadline, hashtag, is_completed);
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Brick brick)) return false; // TODO: pattern variable !
+        if (!(o instanceof BrickEntity brick)) return false; // TODO: pattern variable !
         return id != null && id.equals(brick.id); // TODO: 영속화를 하지 않았을(연결짓지 않은) 경우 id 가 nullable 하므로 그런 경우는 != 처리 해준다.
     }
 

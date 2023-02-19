@@ -45,6 +45,9 @@ dependencies {
     // junit test
     testImplementation 'org.junit.jupiter:junit-jupiter-params:5.8.2'
     testImplementation 'org.assertj:assertj-core:3.23.1'
+
+    // security
+    implementation 'org.springframework.boot:spring-boot-starter-security'
 }
 
 tasks.named('test') {
