@@ -2,7 +2,7 @@ package com.im2.brickback.repository;
 
 import com.im2.brickback.config.JpaConfig;
 import com.im2.brickback.domain.entity.BrickEntity;
-import com.im2.brickback.domain.entity.UserAccountEntity;
+import com.im2.brickback.domain.entity.UserEntity;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,14 +21,14 @@ import static org.assertj.core.api.Assertions.*;
 class JPARepositoryTest {
 
     private final BrickRepository brickRepository;
-    private final UserAccountEntityRepository userAccountEntityRepository;
+    private final UserEntityRepository userEntityRepository;
 
     public JPARepositoryTest(
             @Autowired BrickRepository brickRepository,
-            @Autowired UserAccountEntityRepository userAccountEntityRepository
+            @Autowired UserEntityRepository userEntityRepository
     ) {
         this.brickRepository = brickRepository;
-        this.userAccountEntityRepository = userAccountEntityRepository;
+        this.userEntityRepository = userEntityRepository;
     }
 
     @DisplayName("Select Test")
@@ -39,7 +39,7 @@ class JPARepositoryTest {
 
         // When & Then
         List<BrickEntity> bricks = brickRepository.findAll();
-        List<UserAccountEntity> users = userAccountEntityRepository.findAll();
+        List<UserEntity> users = userEntityRepository.findAll();
 
         assertThat(bricks)
                 .isNotNull()

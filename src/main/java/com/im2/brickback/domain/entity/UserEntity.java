@@ -17,14 +17,14 @@ import java.util.Objects;
 @Getter
 @Setter
 @Table(indexes = {
-        @Index(columnList = "user_id"),
-        @Index(columnList = "created_at"),
-        @Index(columnList = "created_by")
-}, name = "user_account")
+        @Index(columnList = "userId"),
+        @Index(columnList = "createdAt"),
+        @Index(columnList = "createdBy")
+}, name = "user")
 @NoArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
 @Entity
-public class UserAccountEntity {
+public class UserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,27 +43,17 @@ public class UserAccountEntity {
     @LastModifiedDate @Column(nullable = false, length = 100) private LocalDateTime modifiedAt;
     @LastModifiedBy @Column(nullable = false, length = 100) private String modifiedBy;
 
-//    public UserAccountEntity(String user_id, String user_password, String nickname, String email, String phone_number, boolean is_active, UserRole userRole) {
-//        this.user_id = user_id;
-//        this.user_password = user_password;
-//        this.nickname = nickname;
-//        this.email = email;
-//        this.phone_number = phone_number;
-//        this.is_active = is_active;
-//        this.role = userRole;
-//    }
-
-    public static UserAccountEntity of(String userId, String userPassword) {
-        UserAccountEntity userAccountEntity = new UserAccountEntity();
-        userAccountEntity.setUserId(userId);
-        userAccountEntity.setUserPassword(userPassword);
-        return userAccountEntity;
+    public static UserEntity of(String userId, String userPassword) {
+        UserEntity userEntity = new UserEntity();
+        userEntity.setUserId(userId);
+        userEntity.setUserPassword(userPassword);
+        return userEntity;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof UserAccountEntity that)) return false;
+        if (!(o instanceof UserEntity that)) return false;
         return id != null && Objects.equals(id, that.id);
     }
 
