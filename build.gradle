@@ -21,6 +21,7 @@ repositories {
 dependencies {
     // Swagger : https://springdoc.org/v2/
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2'
+    implementation 'org.springdoc:springdoc-openapi-starter-common' // Spring Data Rest, Security support
 
      // database
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
@@ -32,7 +33,7 @@ dependencies {
 
     // rest api
     implementation 'org.springframework.boot:spring-boot-starter-data-rest'
-    implementation 'org.springframework.data:spring-data-rest-hal-explorer'
+//    implementation 'org.springframework.data:spring-data-rest-hal-explorer'
 
     // default
     implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -45,6 +46,9 @@ dependencies {
     // junit test
     testImplementation 'org.junit.jupiter:junit-jupiter-params:5.8.2'
     testImplementation 'org.assertj:assertj-core:3.23.1'
+
+    // security
+    implementation 'org.springframework.boot:spring-boot-starter-security'
 }
 
 tasks.named('test') {

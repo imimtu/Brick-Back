@@ -18,7 +18,7 @@ spring:
       matching-strategy: ant_path_matcher       # Swagger 와 버전 호환문제
 
   datasource:
-    url: jdbc:mysql://ec2-43-201-48-230.ap-northeast-2.compute.amazonaws.com:3306/dev_brick_db
+    url: jdbc:mysql://dev-brick-server-db.ch8hgeinm71i.ap-northeast-2.rds.amazonaws.com:3306/dev_brick_db
     username: imimtu
     password: Imimtu12!
     driver-class-name: com.mysql.cj.jdbc.Driver # MySQL 8 용 드라이버
@@ -27,6 +27,9 @@ spring:
     defer-datasource-initialization: true
     hibernate:
       ddl-auto: create                          # entity 만 보고도 ddl 을 직접 만들어준다.
+                                                # create: 기존테이블 삭제 후 다시 생성 (DROP + CREATE)
+                                                # create-drop: create와 같으나 종료시점에 테이블 DROP
+                                                # update: 변경분만 반영(운영DB에서는 사용하면 안됨)
     show-sql: true
     properties:
       hibernate:                                # 자바 언어를 위한 ORM 프레임워크 (JPA 구현체)
@@ -35,10 +38,15 @@ spring:
   h2:
     console:
       enabled: false
+
   sql:
     init:
-      mode: always #never                              # data.sql 을 언제 작동시킬것인가?
+      mode: never #never                              # data.sql 을 언제 작동시킬것인가?
+
   data:
     rest:
       base-path: /api
       detection-strategy: annotated             # annotation 을 지정한 놈만 api로 노출시킨다는 뜻
+
+springdoc:
+  paths-to-match: /api/v1/**, /api/profile/**
