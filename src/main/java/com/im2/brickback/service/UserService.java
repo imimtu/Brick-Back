@@ -9,6 +9,7 @@ import com.im2.brickback.repository.UserEntityRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -16,8 +17,8 @@ public class UserService {
 
     private final UserEntityRepository userEntityRepository;
     private final BCryptPasswordEncoder encoder;
-//    private final BrickRepository brickRepository;
 
+    @Transactional
     public User join(String userId, String userPassword){
         // 유저명 중복인지?
         userEntityRepository.findByUserId(userId).ifPresent(it -> {
