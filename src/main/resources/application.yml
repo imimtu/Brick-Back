@@ -47,6 +47,17 @@ spring:
     rest:
       base-path: /api
       detection-strategy: annotated             # annotation 을 지정한 놈만 api로 노출시킨다는 뜻
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          audiences:
+          issuer-uri:
 
 springdoc:
   paths-to-match: /api/v1/**, /api/profile/**
+
+jwt:
+  secret-key: this_is_example_secret_key.for_brick_users_authorization
+  token:
+    expired-time-ms: 2592000000
