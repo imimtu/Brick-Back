@@ -24,6 +24,8 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver # MySQL 8 용 드라이버
 
   jpa:
+    database: mysql
+    # database-platform: org.hibernate.dialect.MySQL8InnoDBDialect
     defer-datasource-initialization: true
     hibernate:
       ddl-auto: update                          # entity 만 보고도 ddl 을 직접 만들어준다.
@@ -47,12 +49,6 @@ spring:
     rest:
       base-path: /api
       detection-strategy: annotated             # annotation 을 지정한 놈만 api로 노출시킨다는 뜻
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          audiences:
-          issuer-uri:
 
 springdoc:
   paths-to-match: /api/v1/**, /api/profile/**
