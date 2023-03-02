@@ -19,7 +19,7 @@ spring:
 
   datasource:
     url: jdbc:mysql://dev-brick-server-db.ch8hgeinm71i.ap-northeast-2.rds.amazonaws.com:3306/dev_brick_db
-    username: imimtu
+    userId: imimtu
     password: Imimtu12!
     driver-class-name: com.mysql.cj.jdbc.Driver # MySQL 8 용 드라이버
 

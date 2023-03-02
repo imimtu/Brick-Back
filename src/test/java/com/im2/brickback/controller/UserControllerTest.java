@@ -40,14 +40,14 @@ public class UserControllerTest {
     // JOIN
     @Test
     void test_whenRequest_normalUserJoinRequest_thenReturn_normalUserJoinResponse() throws Exception{
-        String userName = "testUserName";
+        String userId = "testUserId";
         String userPassword = "testUserPassword";
 
-        when(userService.join(userName, userPassword)).thenReturn(Mockito.mock(User.class));
+        when(userService.join(userId, userPassword)).thenReturn(Mockito.mock(User.class));
 
         mockMvc.perform(post("/api/v1/users/join")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsBytes(new UserJoinRequest(userName, userPassword)))
+                        .content(objectMapper.writeValueAsBytes(new UserJoinRequest(userId, userPassword)))
                 )
                 .andDo(print())
                 .andExpect(status().isOk());
@@ -55,14 +55,14 @@ public class UserControllerTest {
 
     @Test
     void test_whenRequest_invalidUserJoinRequest_thenReturn_error() throws Exception {
-        String userName = "testUserName";
+        String userId = "testUserId";
         String userPassword = "testUserPassword";
 
-        when(userService.join(userName, userPassword)).thenThrow(new BrickApplicationException(ErrorCode.DUPLICATED_USER_NAME, ""));
+        when(userService.join(userId, userPassword)).thenThrow(new BrickApplicationException(ErrorCode.DUPLICATED_USER_NAME, ""));
 
         mockMvc.perform(post("/api/v1/users/join")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsBytes(new UserJoinRequest(userName, userPassword)))
+                        .content(objectMapper.writeValueAsBytes(new UserJoinRequest(userId, userPassword)))
                 )
                 .andDo(print())
                 .andExpect(status().isConflict());
@@ -71,16 +71,47 @@ public class UserControllerTest {
     // LOGIN
     @Test
     void test_whenRequest_normalUserLoginRequest_thenReturn_normalUserLoginResponse() throws Exception {
-        String userName = "testUserName";
+        String userId = "testUserId";
         String userPassword = "testUserPassword";
 
-        when(userService.login(userName, userPassword)).thenReturn("test_token");
+        when(userService.login(userId, userPassword)).thenReturn("test_token");
 
         mockMvc.perform(post("/api/v1/users/login")
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(objectMapper.writeValueAsBytes(new UserLoginRequest(userName, userPassword)))
-                ).andDo(print())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsBytes(new UserLoginRequest(userId, userPassword)))
+                )
+                .andDo(print())
                 .andExpect(status().isOk());
-
     }
+
+    @Test
+    void test_whenRequest_wrongPassword_UserLoginRequest_thenReturn_error() throws Exception {
+        String userId = "testUserId";
+        String userPassword = "testUserPassword";
+
+        when(userService.login(userId, userPassword)).thenThrow(new BrickApplicationException(ErrorCode.INVALID_PASSWORD));
+
+        mockMvc.perform(post("/api/v1/users/login")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsBytes(new UserLoginRequest(userId, userPassword)))
+                )
+                .andDo(print())
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    void test_whenRequest_invalid_UserLoginRequest_thenReturn_error() throws Exception {
+        String userId = "testUserId";
+        String userPassword = "testUserPassword";
+
+        when(userService.login(userId, userPassword)).thenThrow(new BrickApplicationException(ErrorCode.USER_NOT_FOUND));
+
+        mockMvc.perform(post("/api/v1/users/login")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsBytes(new UserLoginRequest(userId, userPassword)))
+                )
+                .andDo(print())
+                .andExpect(status().isUnauthorized());
+    }
+
 }

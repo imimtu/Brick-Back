@@ -1,8 +1,10 @@
 package com.im2.brickback.controller;
 
 import com.im2.brickback.controller.request.UserJoinRequest;
+import com.im2.brickback.controller.request.UserLoginRequest;
 import com.im2.brickback.controller.response.Response;
 import com.im2.brickback.controller.response.UserJoinResponse;
+import com.im2.brickback.controller.response.UserLoginResponse;
 import com.im2.brickback.domain.User;
 import com.im2.brickback.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -32,6 +34,15 @@ public class UserController {
         // 회원가입
         User user = userService.join(request.getUserId(), request.getUserPassword());
         return Response.success(UserJoinResponse.fromUser(user));
+    }
+
+    @Operation(summary = "로그인", description = "로그인 진행", tags = { "user" })
+    @ApiResponses(value = { @ApiResponse(description = "successful operation", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = User.class))}) })
+    @PostMapping("/login")
+    public Response<UserLoginResponse> login(@RequestBody UserLoginRequest request){
+        // 접근토큰 반환
+        String token = userService.login(request.getUserId(), request.getUserPassword());
+        return Response.success(new UserLoginResponse(token));
     }
 
 }

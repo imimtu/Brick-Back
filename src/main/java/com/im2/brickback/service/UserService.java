@@ -6,6 +6,7 @@ import com.im2.brickback.exception.BrickApplicationException;
 import com.im2.brickback.exception.ErrorCode;
 import com.im2.brickback.repository.BrickRepository;
 import com.im2.brickback.repository.UserEntityRepository;
+import com.im2.brickback.utils.JwtTokenUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -20,13 +21,13 @@ public class UserService {
     private String secretKey;
 
     @Value("2592000000")
-    private String expiredTimeMs;
+    private Long expiredTimeMs;
 
     private final UserEntityRepository userEntityRepository;
     private final BCryptPasswordEncoder encoder;
 
     @Transactional
-    public User join(String userId, String userPassword){
+    public User join(String userId, String userPassword) {
         // 유저명 중복인지?
         userEntityRepository.findByUserId(userId).ifPresent(it -> {
             throw new BrickApplicationException(ErrorCode.DUPLICATED_USER_NAME, String.format("%s is duplicated.", userId ));
@@ -37,10 +38,10 @@ public class UserService {
     }
 
     @Transactional
-    public String login(String userName, String userPassword) {
+    public String login(String userId, String userPassword) {
         // 가입된 유저인지?
-        UserEntity userEntity = userEntityRepository.findByUserId(userName).orElseThrow(
-                () -> new BrickApplicationException(ErrorCode.USER_NOT_FOUND, String.format("%s is not found.", userName))
+        UserEntity userEntity = userEntityRepository.findByUserId(userId).orElseThrow(
+                () -> new BrickApplicationException(ErrorCode.USER_NOT_FOUND, String.format("%s is not found.", userId))
         );
 
         // 비밀번호 확인
@@ -49,7 +50,7 @@ public class UserService {
         }
 
         // 토큰 생성 후 반환
-        String authToken = JwtTokenUtils.generateToken(userName, secretKey, expiredTimeMs);
+        String authToken = JwtTokenUtils.generateToken(userId, secretKey, expiredTimeMs);
         return authToken;
     }
 
