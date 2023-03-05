@@ -96,11 +96,11 @@ public class UserControllerTest {
                         .content(objectMapper.writeValueAsBytes(new UserLoginRequest(userId, userPassword)))
                 )
                 .andDo(print())
-                .andExpect(status().isNotFound());
+                .andExpect(status().isUnauthorized());
     }
 
     @Test
-    void test_whenRequest_invalid_UserLoginRequest_thenReturn_error() throws Exception {
+    void test_whenRequest_empty_UserLoginRequest_thenReturn_error() throws Exception {
         String userId = "testUserId";
         String userPassword = "testUserPassword";
 
@@ -111,7 +111,7 @@ public class UserControllerTest {
                         .content(objectMapper.writeValueAsBytes(new UserLoginRequest(userId, userPassword)))
                 )
                 .andDo(print())
-                .andExpect(status().isUnauthorized());
+                .andExpect(status().isNotFound());
     }
 
 }
