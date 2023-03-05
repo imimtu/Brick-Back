@@ -63,7 +63,7 @@ jobs:
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.HOST }}
-          userId: ubuntu
+          username: ubuntu
           key: ${{ secrets.KEY }}
           script: |
             sudo docker rm -f $(docker ps -qa)
