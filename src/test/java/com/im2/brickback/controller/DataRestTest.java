@@ -44,17 +44,17 @@ public class DataRestTest {
                 .andDo(print());
     }
 
-    @DisplayName("[api] UserAccount 단건 조회, 리스트 조회")
+    @DisplayName("[api] User 단건 조회, 리스트 조회")
     @Test
-    void givenNothing_whenRequestingUserAccounts_thenReturnsUserAccountsJsonResponse() throws Exception {
+    void givenNothing_whenRequestingUsers_thenReturnsUsersJsonResponse() throws Exception {
         // Given
         // WhenThen
-        mvc.perform( get("/api/userAccounts"))
+        mvc.perform( get("/api/v1/users"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.valueOf("application/hal+json")))
                 .andDo(print());
 
-        mvc.perform(get("/api/userAccounts/1"))
+        mvc.perform(get("/api/v1/users/1"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.valueOf("application/hal+json")))
                 .andDo(print());
