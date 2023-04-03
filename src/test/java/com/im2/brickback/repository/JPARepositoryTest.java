@@ -14,6 +14,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 
 @DisplayName("JPA 연결 테스트")
 @Import(JpaConfig.class)
@@ -60,7 +61,7 @@ class JPARepositoryTest {
         LocalDateTime insertDateTime = LocalDateTime.parse("2022-05-25 19:55:00", formatter);
 
         // When & Then
-        BrickEntity tempBrick = BrickEntity.of("test","test",2, insertDateTime,"test", true);
+        BrickEntity tempBrick = BrickEntity.of(any(),"test","test",2, insertDateTime,"test", true);
         BrickEntity savedBrick = brickRepository.save(tempBrick);
 
         assertThat(brickRepository.count())
