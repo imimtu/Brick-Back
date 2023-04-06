@@ -4,7 +4,6 @@ import com.im2.brickback.domain.User;
 import com.im2.brickback.domain.entity.UserEntity;
 import com.im2.brickback.exception.BrickApplicationException;
 import com.im2.brickback.exception.ErrorCode;
-import com.im2.brickback.repository.BrickRepository;
 import com.im2.brickback.repository.UserEntityRepository;
 import com.im2.brickback.utils.JwtTokenUtils;
 import lombok.RequiredArgsConstructor;
@@ -54,5 +53,12 @@ public class UserService {
         return authToken;
     }
 
+    public User loadUserByUserName(String username){
+        return userEntityRepository.findByNickName(username)
+                .map(User::fromEntity)
+                .orElseThrow(
+                        () -> new BrickApplicationException(ErrorCode.USER_NOT_FOUND, String.format("%s is not founded", username))
+                );
+    }
 }
 

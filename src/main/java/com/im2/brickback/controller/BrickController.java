@@ -15,10 +15,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Tag(name="brick", description = "Brick(ToDo) API")
 @RestController
@@ -30,10 +27,11 @@ public class BrickController {
 
     @Operation(summary = "일정 생성", description = "일정 생성", tags = { "brick" })
     @ApiResponses(value = { @ApiResponse(description = "successful operation", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = Brick.class))}) })
-    @PostMapping("/create")
-    public Response<BrickCreateResponse> create(@RequestBody BrickCreateRequest request, Authentication authentication){
-
-        return null;
+    @PostMapping
+    public Response<Void> create(@RequestBody BrickCreateRequest request, Authentication authentication){
+        // TODO : authentication 으로 가져오는 username 은 중복발생 가능한거 아닌가? -> userId로 가져오는 방법은 없나?
+        brickService.create(request.getTitle(), request.getContent(), request.getPriority(), request.getDeadline(), request.getHashtag(), authentication.getName());
+        return Response.success();
     }
 
 }
