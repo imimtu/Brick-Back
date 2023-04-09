@@ -12,6 +12,6 @@ public class BrickCreateRequest {
     private String title;
     private String content;
     private int priority;
-    private LocalDateTime deadline;
+    private String deadline;
     private String hashtag;
 }

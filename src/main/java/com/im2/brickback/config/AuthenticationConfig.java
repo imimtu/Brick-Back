@@ -1,5 +1,8 @@
 package com.im2.brickback.config;
 
+//import com.im2.brickback.config.filter.JwtTokenFilter;
+import com.im2.brickback.config.filter.JwtTokenFilter;
+import com.im2.brickback.exception.CustomAuthenticationEntryPoint;
 import com.im2.brickback.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -36,20 +39,21 @@ public class AuthenticationConfig { // extends WebsecurityConfigurerAdapter -> d
                                                 "/v3/api-docs/**",
                                                 "/api/profile/**",
                                                 // user
-                                                "/api/*/users/**",
-                                                // brick
-                                                "/api/*/bricks/**"
+                                                "/api/*/users/**"
+//                                                // brick  // 이건 authenticated 쪽에 들어갔어야했는데... 삽질했네;;;
+//                                                "/api/*/bricks",
+//                                                "/api/*/bricks/**"
                                         )
                                         .permitAll()
-                                        .requestMatchers("/api/**").authenticated()
+                                        .requestMatchers("/api/**").authenticated().anyRequest().permitAll()
                                         .and()
                                         .sessionManagement()
                                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-//                                        .and()
-//                                        .exceptionHandling()
-//                                        .authenticationEntryPoint(new CustomAuthenticationEntryPoint())
-//                                        .and()
-//                                        .addFilterBefore(new JwtTokenFilter(key, userService ), UsernamePasswordAuthenticationFilter.class)
+                                        .and()
+                                        .exceptionHandling()
+                                        .authenticationEntryPoint(new CustomAuthenticationEntryPoint())
+                                        .and()
+                                        .addFilterBefore(new JwtTokenFilter(key, userService ), UsernamePasswordAuthenticationFilter.class)
                                 ;
                             } catch (Exception e) {
                                 throw new RuntimeException(e);

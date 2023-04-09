@@ -41,7 +41,7 @@ public class BrickControllerTest {
         String title = "test-title";
         String content = "test-content";
         int priority = 1;
-        LocalDateTime dateTime = LocalDateTime.of(2023,4,1,23,59,59);
+        String dateTime = "20220920210200";
         String hashtag = "hashtag";
 
         SecurityContext context = SecurityContextHolder.getContext();
@@ -61,7 +61,7 @@ public class BrickControllerTest {
         String title = "test-title";
         String content = "test-content";
         int priority = 1;
-        LocalDateTime dateTime = LocalDateTime.of(2023,4,1,23,59,59);
+        String dateTime = "20220920210200";
         String hashtag = "hashtag";
 
         SecurityContext context = SecurityContextHolder.getContext();
