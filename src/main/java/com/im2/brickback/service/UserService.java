@@ -4,7 +4,6 @@ import com.im2.brickback.domain.User;
 import com.im2.brickback.domain.entity.UserEntity;
 import com.im2.brickback.exception.BrickApplicationException;
 import com.im2.brickback.exception.ErrorCode;
-import com.im2.brickback.repository.BrickRepository;
 import com.im2.brickback.repository.UserEntityRepository;
 import com.im2.brickback.utils.JwtTokenUtils;
 import lombok.RequiredArgsConstructor;
@@ -17,10 +16,10 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class UserService {
 
-    @Value("this_is_example_secret_key.for_brick_users_authorization")
+    @Value("${jwt.secret-key}") // 이 부분 왜 하드코딩 되어있냐,,,
     private String secretKey;
 
-    @Value("2592000000")
+    @Value("${jwt.token.expired-time-ms}")
     private Long expiredTimeMs;
 
     private final UserEntityRepository userEntityRepository;
@@ -54,5 +53,12 @@ public class UserService {
         return authToken;
     }
 
+    public User loadUserByUserName(String username){
+        return userEntityRepository.findByNickName(username)
+                .map(User::fromEntity)
+                .orElseThrow(
+                        () -> new BrickApplicationException(ErrorCode.USER_NOT_FOUND, String.format("%s is not founded", username))
+                );
+    }
 }
 

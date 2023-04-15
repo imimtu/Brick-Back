@@ -1,7 +1,9 @@
 package com.im2.brickback.domain.entity;
 
+import com.im2.brickback.domain.User;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.springframework.data.annotation.CreatedBy;
@@ -28,13 +30,18 @@ import java.util.Objects;
 }, name = "brick")
 @EntityListeners(AuditingEntityListener.class)
 @Entity
+@NoArgsConstructor
 public class BrickEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // private UserAccount userAccount;
+    @Setter
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private UserEntity user;
+
     @Setter @Column(nullable = false) private String title;
     @Setter @Column(nullable = false, length = 10000) private String content;
     @Setter private int priority;
@@ -43,23 +50,20 @@ public class BrickEntity {
     @Setter private boolean is_completed;
 
     @CreatedDate @Column(nullable = false, length = 100) private LocalDateTime created_at;
-    @CreatedBy @Column(nullable = false, length = 100) private String created_by; // 누가 했는지는 JpaConfig 에 임시로 달아놓음
+    @CreatedBy @Column(nullable = false, length = 100) private String created_by;
     @LastModifiedDate @Column(nullable = false, length = 100) private LocalDateTime modified_at;
     @LastModifiedBy @Column(nullable = false, length = 100) private String modified_by;
 
-    protected BrickEntity() {}
-
-    public BrickEntity(String title, String content, int priority, LocalDateTime deadline, String hashtag, boolean is_completed) {
-        this.title = title;
-        this.content = content;
-        this.priority = priority;
-        this.deadline = deadline;
-        this.hashtag = hashtag;
-        this.is_completed = is_completed;
-    }
-
-    public static BrickEntity of(String title, String content, int priority, LocalDateTime deadline, String hashtag, boolean is_completed) {
-        return new BrickEntity( title, content, priority, deadline, hashtag, is_completed);
+    public static BrickEntity of(UserEntity user, String title, String content, int priority, LocalDateTime deadline, String hashtag, boolean is_completed) {
+        BrickEntity brickEntity = new BrickEntity();
+        brickEntity.setUser(user);
+        brickEntity.setTitle(title);
+        brickEntity.setContent(content);
+        brickEntity.setPriority(priority);
+        brickEntity.setDeadline(deadline);
+        brickEntity.setHashtag(hashtag);
+        brickEntity.set_completed(is_completed);
+        return brickEntity;
     }
 
     @Override

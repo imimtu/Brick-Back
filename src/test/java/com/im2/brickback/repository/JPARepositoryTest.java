@@ -14,20 +14,21 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 
 @DisplayName("JPA 연결 테스트")
 @Import(JpaConfig.class)
 @DataJpaTest
 class JPARepositoryTest {
 
-    private final BrickRepository brickRepository;
+    private final BrickEntityRepository brickEntityRepository;
     private final UserEntityRepository userEntityRepository;
 
     public JPARepositoryTest(
-            @Autowired BrickRepository brickRepository,
+            @Autowired BrickEntityRepository brickEntityRepository,
             @Autowired UserEntityRepository userEntityRepository
     ) {
-        this.brickRepository = brickRepository;
+        this.brickEntityRepository = brickEntityRepository;
         this.userEntityRepository = userEntityRepository;
     }
 
@@ -38,7 +39,7 @@ class JPARepositoryTest {
         // Given
 
         // When & Then
-        List<BrickEntity> bricks = brickRepository.findAll();
+        List<BrickEntity> bricks = brickEntityRepository.findAll();
         List<UserEntity> users = userEntityRepository.findAll();
 
         assertThat(bricks)
@@ -55,15 +56,15 @@ class JPARepositoryTest {
     void givenTestData_whenInserting_thenWorksFine() {
 
         // Given
-        long previousCount = brickRepository.count();
+        long previousCount = brickEntityRepository.count();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         LocalDateTime insertDateTime = LocalDateTime.parse("2022-05-25 19:55:00", formatter);
 
         // When & Then
-        BrickEntity tempBrick = BrickEntity.of("test","test",2, insertDateTime,"test", true);
-        BrickEntity savedBrick = brickRepository.save(tempBrick);
+        BrickEntity tempBrick = BrickEntity.of(any(),"test","test",2, insertDateTime,"test", true);
+        BrickEntity savedBrick = brickEntityRepository.save(tempBrick);
 
-        assertThat(brickRepository.count())
+        assertThat(brickEntityRepository.count())
                 .isEqualTo(previousCount+1);
     }
 
@@ -72,12 +73,12 @@ class JPARepositoryTest {
     void givenTestData_whenUpdating_thenWorksFine() {
 
         // Given
-        BrickEntity firstBrick = brickRepository.findById(1L).orElseThrow();
+        BrickEntity firstBrick = brickEntityRepository.findById(1L).orElseThrow();
         String updatedContent = "updatedContent";
         firstBrick.setContent("updatedContent");
 
         // When & Then
-        BrickEntity updatedBrick = brickRepository.saveAndFlush(firstBrick);
+        BrickEntity updatedBrick = brickEntityRepository.saveAndFlush(firstBrick);
 
         assertThat(updatedBrick).hasFieldOrPropertyWithValue("content", updatedContent);
     }
@@ -87,13 +88,13 @@ class JPARepositoryTest {
     void givenTestData_whenDeleting_thenWorksFine() {
 
         // Given
-        BrickEntity firstBrick = brickRepository.findById(1L).orElseThrow();
-        long previousBrickCount = brickRepository.count();
+        BrickEntity firstBrick = brickEntityRepository.findById(1L).orElseThrow();
+        long previousBrickCount = brickEntityRepository.count();
 
         // When & Then
-        brickRepository.delete(firstBrick);
+        brickEntityRepository.delete(firstBrick);
 
-        assertThat(brickRepository.count()).isEqualTo(previousBrickCount-1);
+        assertThat(brickEntityRepository.count()).isEqualTo(previousBrickCount-1);
     }
 
 

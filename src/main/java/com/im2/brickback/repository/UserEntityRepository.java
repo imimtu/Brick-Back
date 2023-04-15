@@ -10,4 +10,5 @@ import java.util.Optional;
 public interface UserEntityRepository extends JpaRepository<UserEntity, Long> {
     // userId 기반으로 검색, 없을수도 있으니까 Optional
     Optional<UserEntity> findByUserId(String userId);
+    Optional<UserEntity> findByNickName(String nickName);
 }

@@ -52,6 +52,6 @@ springdoc:
   paths-to-match: /api/v1/**, /api/profile/**
 
 jwt:
-  secret-key: this_is_example_secret_key.for_brick_users_authorization
+  secret-key: thisIsExampleSecretKeyWhichIsUsedInSimpleChatAndShouldBeLongerThen256bit
   token:
     expired-time-ms: 2592000000

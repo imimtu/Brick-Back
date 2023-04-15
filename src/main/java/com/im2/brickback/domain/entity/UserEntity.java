@@ -47,6 +47,7 @@ public class UserEntity {
         UserEntity userEntity = new UserEntity();
         userEntity.setUserId(userId);
         userEntity.setUserPassword(userPassword);
+        userEntity.setRole(UserRole.USER); // 회원가입을 통한 유저는 USER-ROLE
         return userEntity;
     }
 
