@@ -43,8 +43,7 @@ public class AuthenticationConfig { // extends WebsecurityConfigurerAdapter -> d
 //                                                // brick  // 이건 authenticated 쪽에 들어갔어야했는데... 삽질했네;;;
 //                                                "/api/*/bricks",
 //                                                "/api/*/bricks/**"
-                                        )
-                                        .permitAll()
+                                        ).permitAll()
                                         .requestMatchers("/api/**").authenticated().anyRequest().permitAll()
                                         .and()
                                         .sessionManagement()

@@ -16,10 +16,10 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class UserService {
 
-    @Value("this_is_example_secret_key.for_brick_users_authorization")
+    @Value("${jwt.secret-key}") // 이 부분 왜 하드코딩 되어있냐,,,
     private String secretKey;
 
-    @Value("2592000000")
+    @Value("${jwt.token.expired-time-ms}")
     private Long expiredTimeMs;
 
     private final UserEntityRepository userEntityRepository;

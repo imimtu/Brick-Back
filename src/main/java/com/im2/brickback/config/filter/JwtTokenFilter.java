@@ -45,15 +45,14 @@ public class JwtTokenFilter extends OncePerRequestFilter {
             final String token = header.split(" ")[1].trim();
             // TODO : check token is valid
             if(JwtTokenUtils.isExpired(token, key)) {
-                log.error("Key is expired");
                 filterChain.doFilter(request, response);
                 return;
             }
-
             // TODO : get username
             String userName = JwtTokenUtils.getUserName(token, key);
             // TODO : check username is valid
             User user = userService.loadUserByUserName(userName);
+            log.info(user.toString());
 
             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
                     // TODO
