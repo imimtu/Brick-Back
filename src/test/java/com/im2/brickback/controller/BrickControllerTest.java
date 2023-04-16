@@ -1,7 +1,7 @@
 package com.im2.brickback.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.im2.brickback.controller.request.BrickCreateRequest;
+import com.im2.brickback.controller.request.brick.BrickCreateRequest;
 
 import com.im2.brickback.service.BrickService;
 import org.junit.jupiter.api.Test;
@@ -15,8 +15,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.test.context.support.WithAnonymousUser;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
-
-import java.time.LocalDateTime;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;

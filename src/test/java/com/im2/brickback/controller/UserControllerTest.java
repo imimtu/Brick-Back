@@ -1,8 +1,8 @@
 package com.im2.brickback.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.im2.brickback.controller.request.UserJoinRequest;
-import com.im2.brickback.controller.request.UserLoginRequest;
+import com.im2.brickback.controller.request.user.UserJoinRequest;
+import com.im2.brickback.controller.request.user.UserLoginRequest;
 import com.im2.brickback.domain.User;
 import com.im2.brickback.exception.BrickApplicationException;
 import com.im2.brickback.exception.ErrorCode;

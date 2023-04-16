@@ -1,10 +1,10 @@
 package com.im2.brickback.controller;
 
-import com.im2.brickback.controller.request.UserJoinRequest;
-import com.im2.brickback.controller.request.UserLoginRequest;
+import com.im2.brickback.controller.request.user.UserJoinRequest;
+import com.im2.brickback.controller.request.user.UserLoginRequest;
 import com.im2.brickback.controller.response.Response;
-import com.im2.brickback.controller.response.UserJoinResponse;
-import com.im2.brickback.controller.response.UserLoginResponse;
+import com.im2.brickback.controller.response.user.UserJoinResponse;
+import com.im2.brickback.controller.response.user.UserLoginResponse;
 import com.im2.brickback.domain.User;
 import com.im2.brickback.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
