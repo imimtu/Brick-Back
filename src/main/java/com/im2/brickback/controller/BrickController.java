@@ -1,6 +1,5 @@
 package com.im2.brickback.controller;
 
-
 import com.im2.brickback.controller.request.brick.BrickCreateRequest;
 import com.im2.brickback.controller.request.brick.BrickModifyRequest;
 import com.im2.brickback.controller.response.brick.BrickResponse;
@@ -36,7 +35,7 @@ public class BrickController {
     @ApiResponses(value = { @ApiResponse(description = "successful operation", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = Brick.class))}) })
     @PostMapping
     public Response<Void> create(@RequestBody BrickCreateRequest request, Authentication authentication){
-        // TODO : authentication 으로 가져오는 username 은 중복발생 가능한거 아닌가? -> userId로 가져오는 방법은 없나?
+        // TODO : authentication 으로 가져오는 user name 은 중복발생 가능한거 아닌가? -> userId로 가져오는 방법은 없나?
         brickService.create(request.getTitle(), request.getContent(), request.getPriority(), LocalDateTime.parse(request.getDeadline(),dateTimeFormatter), request.getHashtag(), authentication.getName());
         return Response.success();
     }
