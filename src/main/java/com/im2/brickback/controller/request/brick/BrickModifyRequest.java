@@ -1,14 +1,11 @@
-package com.im2.brickback.controller.request;
+package com.im2.brickback.controller.request.brick;
 
-import com.im2.brickback.domain.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-import java.time.LocalDateTime;
-
 @Getter
 @AllArgsConstructor
-public class BrickCreateRequest {
+public class BrickModifyRequest {
     private String title;
     private String content;
     private int priority;

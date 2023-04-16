@@ -1,4 +1,4 @@
-package com.im2.brickback.controller.response;
+package com.im2.brickback.controller.response.user;
 
 
 import com.im2.brickback.domain.User;
