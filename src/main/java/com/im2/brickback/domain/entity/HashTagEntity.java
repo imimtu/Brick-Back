@@ -5,6 +5,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDateTime;
 
@@ -29,11 +33,24 @@ public class HashTagEntity {
     @JoinColumn(name = "user_id")
     private UserEntity user;
 
-    private String title;
-    private int count;
+    @Setter @Column(nullable = false) private String title;
+    @Setter private int count;
 
-    private LocalDateTime created_at;
-    private String created_by;
-    private LocalDateTime modified_at;
-    private String modified_by;
+    @CreatedDate
+    @Column(nullable = false, length = 100) private LocalDateTime created_at;
+    @CreatedBy
+    @Column(nullable = false, length = 100) private String created_by;
+    @LastModifiedDate
+    @Column(nullable = false, length = 100) private LocalDateTime modified_at;
+    @LastModifiedBy
+    @Column(nullable = false, length = 100) private String modified_by;
+
+    public static HashTagEntity of(UserEntity user, String title, int count){
+        HashTagEntity hashTagEntity = new HashTagEntity();
+        hashTagEntity.setUser(user);
+        hashTagEntity.setTitle(title);
+        hashTagEntity.setCount(count);
+        return hashTagEntity;
+    }
+
 }
