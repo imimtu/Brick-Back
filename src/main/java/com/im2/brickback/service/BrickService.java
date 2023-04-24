@@ -25,8 +25,8 @@ public class BrickService {
     @Transactional
     public void create(String title, String content, int priority, LocalDateTime deadline, String hashtag, String nickName) {
         // user find
-        UserEntity userEntity = userEntityRepository.findByNickName(nickName).orElseThrow(() ->
-                new BrickApplicationException(ErrorCode.INVALID_PERMISSION, String.format("nickName %d is not valid", nickName)));
+        UserEntity userEntity = userEntityRepository.findByNickName(nickName).orElseThrow( () ->
+                new BrickApplicationException(ErrorCode.USER_NOT_FOUND, String.format("%s not founded", nickName)));
         // brick save
         brickEntityRepository.save(BrickEntity.of(userEntity,title,content,priority,deadline,hashtag,false)); // 초기 생성시에 is_completed 는 false
     }
