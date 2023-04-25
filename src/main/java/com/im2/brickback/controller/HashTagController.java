@@ -44,15 +44,17 @@ public class HashTagController {
     @Operation(summary = "HashTag 수정", description = "HashTag 를 수정한다.", tags = { "hashtag" })
     @ApiResponses(value = { @ApiResponse(description = "successful operation", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = HashTag.class))}) })
     @PutMapping("/{hashTagId}")
-    public Response<Void> modify(@RequestBody HashTagModifyRequest reqeust, Authentication authentication, @PathVariable Long hashTagId){
-        hashTagService.modify(reqeust.getTitle(), reqeust.getCount(), authentication.getName(), hashTagId );
+    public Response<Void> modify(@RequestBody HashTagModifyRequest request, Authentication authentication, @PathVariable Long hashTagId){
+        hashTagService.modify(request.getTitle(), request.getCount(), authentication.getName(), hashTagId );
         return Response.success();
     }
 
     @Operation(summary = "HashTag 삭제", description = "HashTag 를 삭제한다.", tags = { "hashtag" })
     @ApiResponses(value = { @ApiResponse(description = "successful operation", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = HashTag.class))}) })
     @DeleteMapping("/{hashTagId}")
-    public Response<Void> delete(){
+    public Response<Void> delete(Authentication authentication, @PathVariable Long hashTagId){
+        hashTagService.delete(authentication.getName(), hashTagId);
         return Response.success();
     }
+    
 }
