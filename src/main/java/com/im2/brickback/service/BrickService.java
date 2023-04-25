@@ -32,9 +32,9 @@ public class BrickService {
     }
 
     @Transactional
-    public Page<Brick> list(String name, Pageable pageable) {
-        UserEntity userEntity = userEntityRepository.findByNickName(name).orElseThrow( () ->
-                new BrickApplicationException(ErrorCode.USER_NOT_FOUND, String.format("%s not founded", name)));
+    public Page<Brick> list(String nickName, Pageable pageable) {
+        UserEntity userEntity = userEntityRepository.findByNickName(nickName).orElseThrow( () ->
+                new BrickApplicationException(ErrorCode.USER_NOT_FOUND, String.format("%s not founded", nickName)));
 
         return brickEntityRepository.findAllByUser(userEntity, pageable).map(Brick::fromEntity);
     }
