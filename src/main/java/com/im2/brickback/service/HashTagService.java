@@ -53,7 +53,28 @@ public class HashTagService {
         if(hashTagEntity.getUser() != userEntity){
             throw new BrickApplicationException(ErrorCode.INVALID_PERMISSION, String.format("%s has no permission with %d", nickName, hashTagId));
         }
-        
 
+        hashTagEntity.setTitle(title);
+        hashTagEntity.setCount(count);
+
+        return HashTag.fromEntity(hashTagEntityRepository.saveAndFlush(hashTagEntity));
+    }
+
+    @Transactional
+    public void delete(String nickName, Long hashTagId) {
+        // user exist
+        UserEntity userEntity = userEntityRepository.findByNickName(nickName).orElseThrow( () ->
+                new BrickApplicationException(ErrorCode.USER_NOT_FOUND, String.format("nickName %d is not valid", nickName)));
+
+        // hashtag exist
+        HashTagEntity hashTagEntity = hashTagEntityRepository.findById(hashTagId).orElseThrow( () ->
+                new BrickApplicationException(ErrorCode.HASHTAG_NOT_FOUND, String.format("hashTag %d is not founded", hashTagId)));
+
+        // has permission
+        if(hashTagEntity.getUser() != userEntity){
+            throw new BrickApplicationException(ErrorCode.INVALID_PERMISSION,  String.format("%s has no permission with %d", nickName, hashTagId));
+        }
+
+        hashTagEntityRepository.delete(hashTagEntity);
     }
 }
