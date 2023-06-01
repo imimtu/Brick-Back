@@ -73,12 +73,12 @@ jobs:
             docker image prune -f
 
       ## docker compose up - brick - homeServer
-      - name: executing remote ssh commands using password
+      - name: executing remote ssh commands using password 2nd
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ secrets.HOST-HS }}
-          username: ubuntu
-          key: ${{ secrets.KEY-HS }}
+          host: ${{ secrets.HOST_HS }}
+          username: lsyeup1206
+          key: ${{ secrets.KEY_HS }}
           script: |
 #            sudo docker rm -f $(docker ps -qa) - mysql 서버는 살림
             sudo docker rm -f brick-server brick-proxy
