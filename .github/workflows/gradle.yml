@@ -58,7 +58,7 @@ jobs:
 #           docker build -t ${{ secrets.DOCKER_REPO }}/brick-db . -f brick-db.dockerfile
 #           docker push ${{ secrets.DOCKER_REPO }}/brick-db
     
-      ## docker compose up finally!
+      ## docker compose up - brick - awsServer
       - name: executing remote ssh commands using password
         uses: appleboy/ssh-action@master
         with:
@@ -67,6 +67,21 @@ jobs:
           key: ${{ secrets.KEY }}
           script: |
             sudo docker rm -f $(docker ps -qa)
+            sudo docker pull ${{ secrets.DOCKER_REPO }}/brick-server
+            sudo docker pull ${{ secrets.DOCKER_REPO }}/brick-proxy
+            docker-compose up -d
+            docker image prune -f
+
+      ## docker compose up - brick - homeServer
+      - name: executing remote ssh commands using password
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST-HS }}
+          username: ubuntu
+          key: ${{ secrets.KEY-HS }}
+          script: |
+#            sudo docker rm -f $(docker ps -qa) - mysql 서버는 살림
+            sudo docker rm -f brick-server brick-proxy
             sudo docker pull ${{ secrets.DOCKER_REPO }}/brick-server
             sudo docker pull ${{ secrets.DOCKER_REPO }}/brick-proxy
             docker-compose up -d
