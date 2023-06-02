@@ -59,18 +59,18 @@ jobs:
 #           docker push ${{ secrets.DOCKER_REPO }}/brick-db
     
       ## docker compose up - brick - awsServer
-      - name: executing remote ssh commands using privatekey
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.HOST }}
-          username: ubuntu
-          key: ${{ secrets.KEY }}
-          script: |
-            sudo docker rm -f $(docker ps -qa)
-            sudo docker pull ${{ secrets.DOCKER_REPO }}/brick-server
-            sudo docker pull ${{ secrets.DOCKER_REPO }}/brick-proxy
-            docker-compose up -d
-            docker image prune -f
+#      - name: executing remote ssh commands using privatekey
+#        uses: appleboy/ssh-action@master
+#        with:
+#          host: ${{ secrets.HOST }}
+#          username: ubuntu
+#          key: ${{ secrets.KEY }}
+#          script: |
+#            sudo docker rm -f $(docker ps -qa)
+#            sudo docker pull ${{ secrets.DOCKER_REPO }}/brick-server
+#            sudo docker pull ${{ secrets.DOCKER_REPO }}/brick-proxy
+#            docker-compose up -d
+#            docker image prune -f
 
       ## docker compose up - brick - homeServer
       - name: executing remote ssh commands using password
