@@ -18,7 +18,8 @@ spring:
       matching-strategy: ant_path_matcher       # Swagger 와 버전 호환문제
 
   datasource:
-    url: jdbc:mysql://dev-brick-server-db.ch8hgeinm71i.ap-northeast-2.rds.amazonaws.com:3306/dev_brick_db
+    #url: jdbc:mysql://dev-brick-server-db.ch8hgeinm71i.ap-northeast-2.rds.amazonaws.com:3306/dev_brick_db
+    url: jdbc:mysql://59.6.236.50:3308/dev_brick_db?useSSL=false&allowPublicKeyRetrieval=true
     username: imimtu
     password: Imimtu12!
     driver-class-name: com.mysql.cj.jdbc.Driver # MySQL 8 용 드라이버
