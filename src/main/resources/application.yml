@@ -6,11 +6,11 @@ management:
       exposure:
         include: "*"
 
-logging:
-  level:
-    com.im2.brickback: debug
-    org.springframework.web.servlet: debug      # request, response 로그만 따로 빼서 디버깅하기 위해서
-    org.hibernate.type.descriptor.sql: trace
+# logging:
+#  level:
+#    com.im2.brickback: debug
+#    org.springframework.web.servlet: debug      # request, response 로그만 따로 빼서 디버깅하기 위해서
+#    org.hibernate.type.descriptor.sql: trace
 
 spring:
   mvc:
@@ -31,7 +31,7 @@ spring:
                                                 # create: 기존테이블 삭제 후 다시 생성 (DROP + CREATE)
                                                 # create-drop: create와 같으나 종료시점에 테이블 DROP
                                                 # update: 변경분만 반영(운영DB에서는 사용하면 안됨)
-    show-sql: true
+    show-sql: false                             # sql 동작확인
     properties:
       hibernate:                                # 자바 언어를 위한 ORM 프레임워크 (JPA 구현체)
         format_sql: true

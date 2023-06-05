@@ -52,7 +52,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
             String userName = JwtTokenUtils.getUserName(token, key);
             // TODO : check username is valid
             User user = userService.loadUserByUserName(userName);
-            log.info(user.toString());
+//            log.info(user.toString());
 
             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
                     // TODO

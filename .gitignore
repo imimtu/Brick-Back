@@ -4,6 +4,9 @@
 # MySQL
 /mysql8/*
 
+# LogFiles
+**/*.log
+
 # QueryDSL
 /src/main/generated
 

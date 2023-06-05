@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -25,6 +26,15 @@ public class AuthenticationConfig { // extends WebsecurityConfigurerAdapter -> d
     @Value("${jwt.secret-key}")
     private String key;
 
+    // DEBUG
+    // JwtTokenFilter : Error occurs while getting header. header is null or invalid
+    // join, login 의 경우는 filter chain 에서 허용하도록 한다.
+    @Bean
+    public WebSecurityCustomizer webSecurityCustomizer(){
+        return (web) -> web.ignoring().requestMatchers("/api/*")
+                .requestMatchers("/api/*/users/join", "/api/*/users/login"); // filter chain 타지 않게 한다.
+    }
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
@@ -37,9 +47,9 @@ public class AuthenticationConfig { // extends WebsecurityConfigurerAdapter -> d
                                                 // swagger 허용
                                                 "/swagger-ui/**",
                                                 "/v3/api-docs/**",
-                                                "/api/profile/**",
+                                                "/api/profile/**"
                                                 // user
-                                                "/api/*/users/**"
+                                                // "/api/*/users/**"
 //                                                // brick  // 이건 authenticated 쪽에 들어갔어야했는데... 삽질했네;;;
 //                                                "/api/*/bricks",
 //                                                "/api/*/bricks/**"

@@ -29,6 +29,8 @@ services:
   brick-server:
     container_name: brick-server
     image: lsyeup1206/brick-server
+    volumes:
+      - /home/logs/brick-server-log:./log
     expose:
       - 8080
     ports:
