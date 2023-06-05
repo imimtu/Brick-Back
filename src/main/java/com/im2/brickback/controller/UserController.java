@@ -14,12 +14,14 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @Tag(name="user", description = "사용자 API")
+@Slf4j
 @RestController
 @RequestMapping("/api/v1/users")
 @RequiredArgsConstructor
@@ -40,9 +42,14 @@ public class UserController {
     @ApiResponses(value = { @ApiResponse(description = "successful operation", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = User.class))}) })
     @PostMapping("/login")
     public Response<UserLoginResponse> login(@RequestBody UserLoginRequest request){
+        log.info("UserLoginRequest : [{}]", request.toString());
+
         // 접근토큰 반환
         String token = userService.login(request.getUserId(), request.getUserPassword());
-        return Response.success(new UserLoginResponse(token));
+        UserLoginResponse response = new UserLoginResponse(token);
+
+        log.info("UserLoginResponse : [{}]", response.toString());
+        return Response.success(response);
     }
 
 }
