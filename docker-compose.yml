@@ -30,7 +30,9 @@ services:
     container_name: brick-server
     image: lsyeup1206/brick-server
     volumes:
-      - /home/logs/brick-server-log:./log
+      - type: bind
+        source: ./log
+        target: /home/logs/brick-server-log
     expose:
       - 8080
     ports:
